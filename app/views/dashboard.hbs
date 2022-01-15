@@ -1,0 +1,46 @@
+
+<div class="fixed-action-btn">
+    <a href="/rituals/add" class="btn-floating btn-large waves-effect waves-light red"><i class="fas fa-plus"></i></a>
+</div>
+<h6>Dashboard</h6>
+<h3>Welcome {{name}}</h3>
+<p>Here are your rituals</p>
+{{#if rituals}}
+<table class="striped">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Reminder</th>
+            <th>Last Completion</th>
+            <th>Status</th>
+            <th>Habits</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each rituals}}
+        <tr>
+            <td><a href="/rituals/{{_id}}">{{title}}</a></td>
+            <td>{{time}}</td>
+            <td>{{formatDate createdAt 'Do MMMM YYYY'}}</td>
+            <td><span class="dash-status">{{status}}</span></td>
+            <td><span class="dash-status">{{../user.todays_habit.habits.length}}/{{habits.length}}</span></td>
+            <td>
+                <a href="/rituals/edit/{{_id}}" class="btn btn-float">
+                    <i class="fas fa-edit"></i>
+                </a>
+
+                <form action="/rituals/{{_id}}" method="POST" id="delete-form">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="btn red">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+{{else}}
+<p>You have not created any rituals</p>
+{{/if}}

@@ -1,0 +1,44 @@
+<h1>Users - Index</h1>
+<h3>Welcome {{name}}</h3>
+<p>Here are the other users</p>
+
+<div class="fixed-action-btn">
+    <a href="/rituals/add" class="btn-floating btn-large waves-effect waves-light red"><i class="fas fa-plus"></i></a>
+</div>
+
+{{#if users}}
+<table class="striped">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each users}}
+        <tr>
+            <td><img src="{{image}}" class="circle responsive-img img-tiny"></td>
+            <td><a href="/users/{{_id}}">{{displayName}}</a></td>
+            <td><span class="dash-status"></span></td>
+
+            <td>
+                <a href="/users/edit/{{_id}}" class="btn btn-float">
+                    <i class="fas fa-edit"></i>
+                </a>
+
+                <form action="/users/{{_id}}" method="POST" id="delete-form">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="btn red">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+{{else}}
+<p>There is no user in the database ?!?</p>
+{{/if}}

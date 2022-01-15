@@ -1,0 +1,80 @@
+
+  <!-- top nav -->
+  <nav class="z-depth-0">
+    <div class="nav-wrapper container">
+      <span class="left text-white text-darken-1">
+        <i class="material-icons sidenav-trigger" data-target="side-menu">menu</i>
+      </span>
+      <a class="right" href="/">Good<span>Habits</span></a>
+    </div>
+  </nav>
+
+  <!-- side nav -->
+  <ul id="side-menu" class="sidenav side-menu">
+    <li><a class="subheader">Good Habits</a></li>
+    <li><a href="/stories">Public Stories</a></li>
+    <li><a href="/dashboard">Dashboard</a></li>
+    <li><a href="/rituals">Rituals</a></li>
+    <li><a href="/habits">Habits</a></li>
+    <li><a href="/users">Users</a></li>
+    <li><a href="/auth/logout">Logout</a></li>
+
+    <!-- li><a href="/dashboard" class="waves-effect">Home</a></li>
+    <li><a href="pages/about.html" class="waves-effect">About</a></li-->
+  </ul>
+
+  <div class="container" id="root">
+  </div>
+
+
+  <!-- div class="input-field center">
+    <button id="notifications" class="btn-small add-btn">Notification</button>
+  </div>
+  <div class="center">
+    <a class="btn-floating btn-small btn-large add-btn sidenav-trigger" data-target="side-form">
+      <i class="material-icons">add</i>
+    </a>
+  </div>
+  <div id="like_button_container"></div -->
+
+  <!-- add contact side nav -->
+  <div id="side-form" class="sidenav side-form">
+    <form class="add-contact container section">
+      <h6 >New Contact</h6>
+      <div class="divider"></div>
+      <div class="input-field">
+        <input placeholder="e.g. John Doe" id="title" type="text" class="validate">
+        <label for="title">Contact Name</label>
+      </div>
+      <div class="input-field">
+        <input placeholder="e.g. +198392323" id="numbers" type="text" class="validate">
+        <label for="numbers">Number</label>
+      </div>
+      <div class="input-field center">
+        <button class="btn-small">Add Contact</button>
+      </div>
+    </form>
+  </div>
+
+  <script>/*
+  var button = document.getElementById("notifications");
+  button.addEventListener('click', function(e) {
+    console.log( "click on notification" )
+      Notification.requestPermission().then(function(result) {
+          if(result === 'granted') {
+              randomNotification();
+
+          }
+      });
+  });
+
+  function randomNotification() {
+      let notifTitle = "Ma premiere notification"
+      var options = {
+          body: "Un vrai succes",
+          icon: "img/pkcontacts.png"
+      }
+      var notif = new Notification(notifTitle, options);
+      setTimeout(randomNotification, 30000);
+  }*/
+  </script>

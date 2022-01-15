@@ -1,0 +1,33 @@
+<h3>Edit User</h3>
+<div class="row">
+    <form action="/users/{{show_user._id}}" method="POST" class="col s12">
+        <input type="hidden" name="_method" value="PUT">
+        <div class="row">
+            <div class="input-field">
+                <input type="text" id="name" name="name" value="{{show_user.displayName}}">
+                <label for="name">Name</label>
+            </div>
+        </div>
+
+        <div class="row">
+        <label>
+            <div class="input-field">
+                <input type="checkbox" id="useradmin" name="useradmin" class="filled-in" {{#if show_user.admin}}checked="checked"{{/if}} />
+                <span>Admin</span>
+            </div>
+            </label>
+        </div>
+
+        <div class="row">
+            <div class="input-field">
+                <h5>Tell Us Your Story:</h5>
+                <textarea id="body" name="body">A text</textarea>
+            </div>
+        </div>
+
+        <div class="row">
+            <input type="submit" value="Save" class="btn">
+            <a href="/dashboard" class="btn orange">Cancel</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,131 @@
+<div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>List of habits</h4>
+      <form>
+      <table id="modal1_table" class="striped">
+        <thead>
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" onclick='saveHabitSelection()' class="modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+</div>
+
+<script>
+    function addMaterializeCheckbox( name, checked ) {
+      console.log( name + " checked " + checked )
+        return '<p><label><input type="checkbox" class="filled-in" id="' + name + '" ' +  (checked?'checked="checked" ':"") + '/><span/></label></p>'
+    }
+
+    function saveHabitSelection() {
+        let postData = { result : [] }
+        $( "#modal1_table tbody input" ).each( (index, d) => { if( $(d).is(':checked') ) postData.result.push( d.id ) } )
+        ajaxPost( "/rituals/add_habit/{{_id}}", postData, console.log )
+        //$.post( "/rituals/add_habit/{{_id}}", JSON.stringify(postData), console.log, "json" )
+    }
+
+    function initModal1() {
+      $('#modal1').modal( {
+        onOpenEnd: () => {
+            $.get( "/rituals/list_to_add/{{_id}}", (data, status) => {
+                $('#modal1_table tbody tr').remove()
+                $(data).each(function(i, elem) {
+                    $('#modal1_table').append('<tr><td>' + addMaterializeCheckbox( "habit_" + elem._id, elem.selected ) + '</td><td>' + elem.title + '</td><td>' + elem.body + '</td></tr>' )
+                })
+            })
+        },
+      })
+    }
+
+ </script>
+
+<table class="striped" id="habits_table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Title</th>
+            <th><a class="waves-effect waves-light btn modal-trigger" href="#modal1"><i class="fas fa-plus" /></a></th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each habits}}
+        <tr>
+            <td><p><label>
+              <input type="checkbox" class="filled-in" id="habit_{{_id}}"  {{#if selected}}checked="checked"{{/if}} /><span></span>
+            </label></p>
+            </td>
+            <td><a href="/habits/{{_id}}">{{title}}</a></td>
+            <td>
+                <form action="/rituals/delete_habit/{{../_id}}/{{_id}}" method="POST" id="delete-form">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="btn red">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<script>
+function initRitualsCheckBox() {
+  console.log( "initRitualCheckBox" )
+  $('#habits_table tbody tr').each((idx, d) => {
+    let tr = $(d).find( "td:eq(0)" )
+    let selBtn = $(tr).find("input")[0]
+     console.log( selBtn.id )
+
+     selBtn.addEventListener( "click" , (event) => {
+       console.log( "Clicked on " + selBtn.id + " " + selBtn.checked )
+       if( selBtn.checked ) {
+         let postData = {
+           id: selBtn.id,
+           done: selBtn.checked
+         }
+         ajaxPost( "/users/todays_habits/{{_id}}", postData, (data) => { console.log( "Done ", data )})
+       }
+     })
+   })
+
+  //     find("td:eq(0)").each( (i, d ) => { console.log( d.text().trim() ) })
+  /*each((i, row) => {
+    console.log( $(row).find("td:eq(0)").text().trim() )
+  })*/
+}
+</script>
+
+<script>
+
+function ajaxPost( url, data, next ) {
+  console.log( url )
+  console.log( data )
+
+  $.ajax( {
+    type: "POST",
+    dataType:"json",
+    contentType: "application/json",
+    url: url,
+    data: JSON.stringify(data)
+  })
+  .done( next )
+  .fail(function(xhr, textStatus, errorThrown) {
+    console.log("ERROR: ",xhr.responseText)
+    return xhr.responseText;
+  })
+}
+
+$(document).ready(function(){
+  initModal1()
+  initRitualsCheckBox()
+})
+</script>

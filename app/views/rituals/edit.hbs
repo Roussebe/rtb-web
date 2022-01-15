@@ -1,0 +1,41 @@
+<h3>Edit Ritual</h3>
+<div class="row">
+    <form action="/rituals/{{ritual._id}}" method="POST" class="col s12">
+        <input type="hidden" name="_method" value="PUT">
+        <div class="row">
+            <div class="input-field">
+                <input type="text" id="title" name="title" value="{{ritual.title}}">
+                <label for="title">Title</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field">
+                <select id="status" name="status">
+                    {{#select ritual.status}}
+                    <option value="public" selected>Public</option>
+                    <option value="private">Private</option>
+                    {{/select}}
+                </select>
+                <label for="status">Status</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field">
+                <input type="text" id="time" name="time" value="{{ritual.time}}">
+                <label for="time">Time</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field">
+                <h5>Describe your ritual:</h5>
+                <textarea id="body" name="body">{{ritual.body}}</textarea>
+            </div>
+        </div>
+
+        <div class="row">
+            <input type="submit" value="Save" class="btn">
+            <a href="/rituals" class="btn orange">Cancel</a>
+        </div>
+    </form>
+</div>
