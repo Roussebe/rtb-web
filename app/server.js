@@ -5,7 +5,7 @@ const session = require('express-session')
 const morgan = require('morgan');
 const path = require('path')
 const methodOverride = require('method-override')
-const cors = require('cors');
+//const cors = require('cors');
 
 const MongoStore = require('connect-mongo')
 const connectDB = require('./config/db')
@@ -25,7 +25,7 @@ const app = express();
 const NODE_ENV = process.env.NODE_ENV || "development"
 
 if( NODE_ENV === 'development') {
-
+/*
   const corsOptions = {
     origin: process.env.CLIENT_URL,
     credentials: true,
@@ -35,7 +35,7 @@ if( NODE_ENV === 'development') {
     'preflightContinue': false
   }
   app.use(cors(corsOptions));
-
+*/
   app.use( morgan( 'dev' ) )
 }
 
@@ -76,7 +76,7 @@ app.use(function (req, res, next) {
   next()
 })
 
-app.use(cors())
+//app.use(cors())
 
 //Routes
 const public_path = path.join(__dirname, '../client/public')
